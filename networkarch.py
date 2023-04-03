@@ -22,7 +22,7 @@ def weight_variable(shape, var_name, distribution='tn', scale=0.1):
     Raises ValueError if distribution is filename but shape of data in file does not match input shape
     """
     if distribution == 'tn':
-        initial = tf.truncated_normal(shape, stddev=scale, dtype=tf.float64)
+        initial = tf.random.truncated_normal(shape, stddev=scale, dtype=tf.float64)
     elif distribution == 'xavier':
         scale = 4 * np.sqrt(6.0 / (shape[0] + shape[1]))
         initial = tf.random_uniform(shape, minval=-scale, maxval=scale, dtype=tf.float64)
@@ -88,7 +88,8 @@ def encoder(widths, dist_weights, dist_biases, scale, num_shifts_max):
     Side effects:
         None
     """
-    x = tf.placeholder(tf.float64, [num_shifts_max + 1, None, widths[0]])
+    tf.compat.v1.disable_eager_execution()
+    x = tf.compat.v1.placeholder(tf.float64, [num_shifts_max + 1, None, widths[0]])
 
     weights = dict()
     biases = dict()

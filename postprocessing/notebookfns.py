@@ -429,7 +429,7 @@ def loss_training(params, max_shifts_to_stack, W, b):
     data_train_len = params['data_train_len']
     total_num_traj = 0
     for j in np.arange(data_train_len):
-        X = np.loadtxt('%s_train%d_x.csv' % (params['data_name'], j + 1), delimiter=',')
+        X = np.loadtxt('../data/%s_train%d_x.csv' % (params['data_name'], j + 1), delimiter=',')
         X_stacked, num_traj = stack_data(X, max_shifts_to_stack, params['len_time'])
         print("file %d has %d trajectories" % (j+1, num_traj))
         total_num_traj += num_traj
